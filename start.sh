@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-#export DAEMONIZE=yes
+export DAEMONIZE=yes
 
 export BIND_ADDRESS=0.0.0.0
 export BIND_PORT=1025
