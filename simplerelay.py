@@ -57,8 +57,15 @@ if __name__ == "__main__":
         log_file = os.environ['LOG_FILE']
 
     bind = (os.environ['BIND_ADDRESS'], int(os.environ['BIND_PORT']))
-    relay = (os.environ['RELAY_HOST'], int(os.environ['RELAY_HOST_PORT']))
-    tls_flag = os.environ['RELAY_HOST_TLS']
+    if os.environ.has_key('RELAY_PASSWD'):
+        relay = (os.environ['RELAY_HOST'], int(os.environ['RELAY_HOST_PORT']),
+            os.environ['RELAY_USER'], os.environ['RELAY_PASSWD'])
+    else:
+        relay = (os.environ['RELAY_HOST'], int(os.environ['RELAY_HOST_PORT']))
+    if os.environ.has_key('RELAY_HOST_TLS'):
+        tls_flag = os.environ['RELAY_HOST_TLS']
+    else:
+        tls_flag = 'no'
     config = {
         'log_file': log_file,
         'rcpt_domain': '',
