@@ -53,16 +53,16 @@ class SimpleRelayService(smtpd.PureProxy):
 if __name__ == "__main__":
 
     log_file = 'simplerelay.log'
-    if os.environ.has_key('LOG_FILE'):
+    if 'LOG_FILE' in os.environ:
         log_file = os.environ['LOG_FILE']
 
     bind = (os.environ['BIND_ADDRESS'], int(os.environ['BIND_PORT']))
-    if os.environ.has_key('RELAY_PASSWD'):
+    if 'RELAY_PASSWD' in os.environ:
         relay = (os.environ['RELAY_HOST'], int(os.environ['RELAY_HOST_PORT']),
             os.environ['RELAY_USER'], os.environ['RELAY_PASSWD'])
     else:
         relay = (os.environ['RELAY_HOST'], int(os.environ['RELAY_HOST_PORT']))
-    if os.environ.has_key('RELAY_HOST_TLS'):
+    if 'RELAY_HOST_TLS' in os.environ:
         tls_flag = os.environ['RELAY_HOST_TLS']
     else:
         tls_flag = 'no'
@@ -72,8 +72,8 @@ if __name__ == "__main__":
         'fwd_address': '',
         'tls': tls_flag}
 
-    if os.environ.has_key('DAEMONIZE') and bool(os.environ['DAEMONIZE']):
-        from daemon.pidlockfile import PIDLockFile
+    if 'DAEMONIZE' in os.environ and bool(os.environ['DAEMONIZE']):
+        from pidlockfile import PIDLockFile
         pidfile = PIDLockFile(os.environ['PIDFILE'])
         working_directory = os.environ['WORKING_DIRECTORY']
         startup_log_file=open(log_file, 'a')
